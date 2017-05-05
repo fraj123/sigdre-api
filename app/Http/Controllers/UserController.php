@@ -98,6 +98,8 @@ class UserController extends Controller
         $credentials = $request->only('email', 'password');
         $token = null;
 
+        $usuario = \App\User::where('email', $request->email) -> first();
+
         try{
             if(!$token = JWTAuth::attempt($credentials)){
                 return response()->json(['error'=>'Invalid credentials']);
@@ -105,6 +107,6 @@ class UserController extends Controller
         } catch (JWTException $exception){
             return response()->json(['error'=>'Something went wrong'], 500);
         }
-        return response()->json(compact('token'));
+        return response()->json(compact('usuario', 'token'));
     }
 }
