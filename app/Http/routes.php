@@ -17,4 +17,7 @@ Route::get('/', function () {
 
 Route::group(['middleware' => 'cors'], function (){
     Route::post('/auth_login', 'UserController@auth');
+
+    Route::get('/usuarios', 'UserController@index');
+    Route::get('/cargos', 'CargosController@index');
 });

@@ -25,4 +25,12 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function cargos(){
+        return $this->belongsTo('App\Charges', 'id_cargo');
+    }
+
+    public function estados(){
+        return $this->belongsTo('App\UserStatus', 'id_estado');
+    }
 }

@@ -5,10 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
-class UserController extends Controller
+class CargosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +15,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $usuarios = \App\User::with('cargos', 'estados')->get();
-        return response()->json(compact('usuarios'));
+        $cargos = \App\Charges::All();
+        return response()->json(compact('cargos'));
     }
 
     /**
@@ -85,29 +83,5 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    /**
-     * Metodo para la autenticacion de usuario mediante un token
-     * en la API
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function auth(Request $request){
-
-        $credentials = $request->only('email', 'password');
-        $token = null;
-
-        $usuario = \App\User::where('email', $request->email) -> first();
-
-        try{
-            if(!$token = JWTAuth::attempt($credentials)){
-                return response()->json(['error'=>'Invalid credentials']);
-            }
-        } catch (JWTException $exception){
-            return response()->json(['error'=>'Something went wrong'], 500);
-        }
-        return response()->json(compact('usuario', 'token'));
     }
 }
