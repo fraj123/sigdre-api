@@ -19,5 +19,14 @@ Route::group(['middleware' => 'cors'], function (){
     Route::post('/auth_login', 'UserController@auth');
 
     Route::get('/usuarios', 'UserController@index');
+    Route::post('/usuarios_add', 'UserController@store');
+    Route::post('/usuarios_edit/{id}', 'UserController@update');
+
+    Route::get('/usuarios_estados', 'UsuarioEstadosController@index');
+
     Route::get('/cargos', 'CargosController@index');
+
+    Route::get('/privilegios', 'PrivilegiosController@index');
+    Route::post('/privilegios_add', 'PrivilegiosController@store');
+    Route::post('/privilegios_edit/{id}', 'PrivilegiosController@update');
 });
